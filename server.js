@@ -53,12 +53,15 @@ app.get('/callback', function(req, res) {
     json: true
   }
   request.post(authOptions, function(error, response, body) {
-    var access_token = body.access_token
+    var access_token = body.access_token;
+    var expires_in = body.expires_in;
+    var refresh_token = body.refresh_token;
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
-    res.set({
-      'Authorization': access_token
-    })
-    res.redirect(uri + '?access_token=' + access_token)
+    res.redirect(uri + 
+      '?access_token=' + access_token +
+      '&expires_in=' + expires_in +
+      '&refresh_token=' + refresh_token      
+      )
   })
 })
 
