@@ -58,7 +58,7 @@ app.get('/callback', function(req, res) {
     res.set({
       'Authorization': access_token
     })
-    res.redirect(uri)
+    res.redirect(uri + '?access_token=' + access_token)
   })
 })
 
