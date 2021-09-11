@@ -13,7 +13,25 @@ app.get('/login', function(req, res) {
     querystring.stringify({
       response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
-      scope: 'user-read-private user-read-email',
+      scope:  'ugc-image-upload ' +
+              'playlist-modify-private ' +
+              'playlist-read-private ' +
+              'playlist-modify-public ' +
+              'playlist-read-collaborative ' + 
+              'user-read-private ' + 
+              'user-read-email ' + 
+              'user-read-playback-state ' + 
+              'user-modify-playback-state ' + 
+              'user-read-currently-playing ' + 
+              'user-library-modify ' + 
+              'user-library-read ' + 
+              'user-read-playback-position ' + 
+              'user-read-recently-played ' + 
+              'user-top-read ' + 
+              'app-remote-control ' + 
+              'streaming ' + 
+              'user-follow-modify ' + 
+              'user-follow-read ',
       redirect_uri
     }))
 })
@@ -37,7 +55,10 @@ app.get('/callback', function(req, res) {
   request.post(authOptions, function(error, response, body) {
     var access_token = body.access_token
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
-    res.redirect(uri + '?access_token=' + access_token)
+    res.set({
+      'Authorization': access_token
+    })
+    res.redirect(uri)
   })
 })
 
