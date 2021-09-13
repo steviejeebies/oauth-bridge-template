@@ -52,7 +52,7 @@ app.get('/callback', function(req, res) {
   }
   request.post(authOptions, function(error, response, body) {
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
-    res.redirect(uri + querystring.stringify({
+    res.redirect(uri + '?' + querystring.stringify({
         access_token: body.access_token,
         expires_in: body.expires_in,
         refresh_token: body.refresh_token 
