@@ -4,9 +4,13 @@ let querystring = require('querystring')
 
 let app = express()
 
-let redirect_uri = 
-  process.env.REDIRECT_URI || 
-  'https://spoofyclean.herokuapp.com/callback'
+// let redirect_uri = 
+//   process.env.REDIRECT_URI || 
+//   'https://spoofyclean.herokuapp.com/callback'
+
+// TODO: Change back to the above when done with localhost
+let redirect_uri = 'https://localhost:3000/callback';
+  
 
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
