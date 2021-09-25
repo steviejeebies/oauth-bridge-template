@@ -6,7 +6,7 @@ let app = express()
 
 let redirect_uri = 
   process.env.REDIRECT_URI || 
-  'https://spoofyclean-auth.herokuapp.com/callback'
+  'https://spoofyclean.herokuapp.com/callback'
 
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -35,7 +35,7 @@ app.get('/login', function(req, res) {
 })
 
 app.get('/callback', function(req, res) {
-  let code = req.query.code || null
+  let code = req.headers.code;
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
@@ -51,13 +51,12 @@ app.get('/callback', function(req, res) {
     json: true
   }
   request.post(authOptions, function(error, response, body) {
-    let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
-    res.redirect(uri + '?' + querystring.stringify({
-        access_token: body.access_token,
-        expires_in: body.expires_in,
-        refresh_token: body.refresh_token 
-      })
-    )
+    // Spotify has responded with token, now send it to Frontend
+    res.send({
+      access_token: body.access_token,
+      expires_in: body.expires_in,
+      refresh_token: body.refresh_token 
+    })
   })
 })
 
