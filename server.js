@@ -2,7 +2,13 @@ let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
 
+const cors = require("cors");
+
 let app = express()
+
+app.use(
+  cors("http://localhost:3000")    // TODO: CORRECT
+)
 
 // let redirect_uri = 
 //   process.env.REDIRECT_URI || 
