@@ -10,10 +10,10 @@ app.use(
   cors("https://spoofyclean.herokuapp.com")
 )
 
-let redirect_uri = 'https://spoofyclean.herokuapp.com/callback'
+// let redirect_uri = 'https://spoofyclean.herokuapp.com/callback'
 
 // // TODO: Change back to the above when done with localhost
-// let redirect_uri = 'https://localhost:3000/callback';
+let redirect_uri = 'https://localhost:3000/callback';
   
 
 app.get('/login', function(req, res) {
