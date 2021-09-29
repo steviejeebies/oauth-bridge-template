@@ -44,9 +44,6 @@ app.get('/login', function(req, res) {
 
 app.get('/callback', function(req, res) {
   let code = req.headers.code;
-  res.send({
-    code
-  })
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
@@ -64,11 +61,7 @@ app.get('/callback', function(req, res) {
   request.post(authOptions, function(error, response, body) {
     // Spotify has responded with token, now send it to Frontend
     res.send({
-      access_token: body.access_token,
-      expires_in: body.expires_in,
-      refresh_token: body.refresh_token, 
-      error,
-      response
+      gotToken: true 
     })
   })
 })
