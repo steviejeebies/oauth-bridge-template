@@ -66,7 +66,9 @@ app.get('/callback', function(req, res) {
     res.send({
       access_token: body.access_token,
       expires_in: body.expires_in,
-      refresh_token: body.refresh_token 
+      refresh_token: body.refresh_token, 
+      error,
+      response
     })
   })
 })
