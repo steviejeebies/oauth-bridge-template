@@ -1,6 +1,7 @@
 let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
+const logger = require('pino')()
 
 const cors = require("cors");
 
@@ -44,6 +45,7 @@ app.get('/login', function(req, res) {
 
 app.get('/callback', function(req, res) {
   let code = req.headers.code;
+  logger.info(`got code ${code}`);
   let authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
@@ -60,8 +62,12 @@ app.get('/callback', function(req, res) {
   }
   request.post(authOptions, function(error, response, body) {
     // Spotify has responded with token, now send it to Frontend
+    logger.info(`from spotify, got body = ${JSON.stringify(body)}, response = ${response}`)
     res.send({
-      gotToken: true 
+      new: true,
+      access_token: body.access_token,
+      expires_in: body.expires_in,
+      refresh_token: body.refresh_token, 
     })
   })
 })
