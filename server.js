@@ -2,16 +2,17 @@ let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
 const logger = require('pino')()
+require('dotenv').config()
 
 const cors = require("cors");
 
 let app = express()
 
 app.use(
-  cors("https://spoofyclean.herokuapp.com")
+  cors(process.env.WEBSITE)
 )
 
-// let redirect_uri = 'https://spoofyclean.herokuapp.com/callback'
+// let redirect_uri = `${process.env.WEBSITE}/callback`
 
 // // TODO: Change back to the above when done with localhost
 let redirect_uri = 'https://localhost:3000/callback';
